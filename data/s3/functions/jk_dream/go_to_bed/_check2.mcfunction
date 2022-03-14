@@ -24,21 +24,21 @@ function s3:jk_dream/handle/moon_phase
 scoreboard players operation $no_dream_percent tmp = 6 int
 scoreboard players operation $no_dream_percent tmp -= $moon_light tmp
 scoreboard players operation $no_dream_percent tmp *= 25 int
-function s3:jk_dream/go_to_bed/multi
+function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测玩家床附近的方块
 function s3:jk_dream/handle/check_direction_of_bed
-execute if score $direc tmp matches 0 rotated -90 0 run function s3:jk_dream/go_to_bed/bedhead
-execute if score $direc tmp matches 1 rotated 0 0 run function s3:jk_dream/go_to_bed/bedhead
-execute if score $direc tmp matches 2 rotated 90 0 run function s3:jk_dream/go_to_bed/bedhead
-execute if score $direc tmp matches 3 rotated 180 0 run function s3:jk_dream/go_to_bed/bedhead
+execute if score $direc tmp matches 0 rotated -90 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 1 rotated 0 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 2 rotated 90 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 3 rotated 180 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
 
 # 检测状态数量
 scoreboard players set $no_dream_percent tmp 100
 execute store result score $count tmp if data entity @s ActiveEffects[]
 scoreboard players set $multi_percent tmp 80
-function s3:jk_dream/go_to_bed/power
-function s3:jk_dream/go_to_bed/multi
+function s3:jk_dream/go_to_bed/_check2/power
+function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测血量
 execute store result score $max_health tmp run attribute @s generic.max_health get
@@ -47,16 +47,20 @@ scoreboard players operation $no_dream_percent tmp *= 150 int
 scoreboard players operation $no_dream_percent tmp /= $max_health tmp
 #0~150填入区间 50~200,血量越高不做梦概率越高
 scoreboard players add $no_dream_percent tmp 50
-function s3:jk_dream/go_to_bed/multi
+function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测饥饿值
 execute store result score $no_dream_percent tmp run data get entity @s foodLevel
 scoreboard players operation $no_dream_percent tmp *= 150 int
 scoreboard players operation $no_dream_percent tmp /= 20 int
 scoreboard players add $no_dream_percent tmp 50
-function s3:jk_dream/go_to_bed/multi
+function s3:jk_dream/go_to_bed/_check2/multi
 
-# 给玩家增加记录，并对记录中频繁进入的玩家减小概率
+# 1分钟内有睡觉记录，则不做梦的概率乘4
+execute store result score #now tmp run time query gametime
+scoreboard players operation #now tmp -= @s jk_lastDreamTime
+execute if score #now tmp <= 1200 int run scoreboard players operation $no_dream tmp *= 4 int
+execute store result score @s jk_lastDreamTime run time query gametime
 
 
 
