@@ -1,0 +1,19 @@
+{
+    "注释":"嗯,abiotic是非生物的意思",
+    "values": [
+        "experience_orb",
+        "item",
+        "end_crystal",
+        "evoker_fangs",
+        "fishing_bobber",
+        "leash_knot",
+        "lightning_bolt",
+        "painting",
+        "falling_block",
+        "tnt",
+        "#s3:markers",
+        "boat",
+        "#s3:minecars",
+        "#s3:throws"
+    ]
+}

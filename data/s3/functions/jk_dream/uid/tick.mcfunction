@@ -1,0 +1,1 @@
+execute as @a unless score @s uid matches 1..2147483647 store result score @s uid run scoreboard players add # uid 1

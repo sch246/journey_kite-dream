@@ -1,0 +1,11 @@
+{
+    "values": [
+        "area_effect_cloud",
+        "item_frame",
+        "armor_stand",
+        {
+            "required": false,
+            "id": "marker"
+        }
+    ]
+}

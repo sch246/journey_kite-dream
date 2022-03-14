@@ -1,0 +1,8 @@
+{
+    "values": [
+        "s3:jk_dream/uid/tick",
+        "s3:jk_dream/age/tick",
+        "s3:jk_dream/tick",
+        "s3:jk_dream/dimensions/create/tick"
+    ]
+}

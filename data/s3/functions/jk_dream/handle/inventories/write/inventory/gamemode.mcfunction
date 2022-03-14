@@ -1,0 +1,1 @@
+data modify storage temp Inventory.gamemode set from entity @s playerGameType

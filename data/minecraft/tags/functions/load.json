@@ -1,0 +1,9 @@
+{
+    "values": [
+        "s3:jk_dream/uid/load",
+        "s3:jk_dream/age/load",
+        "s3:jk_dream/load",
+        "s3:jk_dream/handle/random/init",
+        "s3:jk_dream/handle/constant"
+    ]
+}
