@@ -1,4 +1,4 @@
-execute if score # debug.log matches 1 run say _check2
+execute if score # debug.log matches 1 run tellraw @a {"text": "_check2","color": "gray"}
 # 计算概率
 # 正常情况下玩家进入梦境概率为0.5
 # 计算因子是“不入睡”的概率
@@ -29,10 +29,10 @@ function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测玩家床附近的方块
 function s3:jk_dream/handle/check_direction_of_bed
-execute if score $direc tmp matches 0 rotated -90 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
-execute if score $direc tmp matches 1 rotated 0 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
-execute if score $direc tmp matches 2 rotated 90 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
-execute if score $direc tmp matches 3 rotated 180 0 run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 0 rotated -90 0 positioned ^ ^ ^ run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 1 rotated 0 0 positioned ^ ^ ^ run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 2 rotated 90 0 positioned ^ ^ ^ run function s3:jk_dream/go_to_bed/_check2/bedhead
+execute if score $direc tmp matches 3 rotated 180 0 positioned ^ ^ ^ run function s3:jk_dream/go_to_bed/_check2/bedhead
 
 # 检测状态数量
 scoreboard players set $no_dream_percent tmp 100
