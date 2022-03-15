@@ -63,6 +63,6 @@ execute if score #now tmp <= 1200 int run scoreboard players operation $no_dream
 execute store result score @s jk_lastDreamTime run time query gametime
 
 
-
+execute if score # debug.log matches 1 run tellraw @a [{"text": "此次不做梦的概率为:"},{"score":{"name": "$no_dream","objective": "tmp"}},"/",{"score":{"name": "$max","objective": "tmp"}}]
 
 execute if score $random tmp >= $no_dream tmp run function s3:jk_dream/go_to_bed/enter_dream
