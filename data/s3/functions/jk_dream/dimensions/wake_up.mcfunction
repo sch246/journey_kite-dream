@@ -1,4 +1,4 @@
-execute if score # debug.log matches 1 run say wake_up
+execute if score # debug.log matches 1 run tellraw @a {"text": "wake_up","color": "gray"}
 function s3:jk_dream/handle/state/load
 tag @s remove jk_dreaming
 scoreboard players operation # tmp = @s uid

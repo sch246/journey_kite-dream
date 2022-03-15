@@ -24,6 +24,7 @@ function s3:jk_dream/handle/moon_phase
 scoreboard players operation $no_dream_percent tmp = 6 int
 scoreboard players operation $no_dream_percent tmp -= $moon_light tmp
 scoreboard players operation $no_dream_percent tmp *= 25 int
+execute if score # debug.log matches 1 run tellraw @a [{"text": "","color": "dark_aqua"},{"text": "月相加成:","color": "aqua"},{"score":{"name": "$no_dream_percent","objective": "tmp"}},"%"]
 function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测玩家床附近的方块
@@ -38,6 +39,7 @@ scoreboard players set $no_dream_percent tmp 100
 execute store result score $count tmp if data entity @s ActiveEffects[]
 scoreboard players set $multi_percent tmp 80
 function s3:jk_dream/go_to_bed/_check2/power
+execute if score # debug.log matches 1 run tellraw @a [{"text": "","color": "dark_aqua"},{"text": "状态效果加成:","color": "aqua"},{"score":{"name": "$no_dream_percent","objective": "tmp"}},"%"]
 function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测血量
@@ -47,6 +49,7 @@ scoreboard players operation $no_dream_percent tmp *= 150 int
 scoreboard players operation $no_dream_percent tmp /= $max_health tmp
 #0~150填入区间 50~200,血量越高不做梦概率越高
 scoreboard players add $no_dream_percent tmp 50
+execute if score # debug.log matches 1 run tellraw @a [{"text": "","color": "dark_aqua"},{"text": "血量加成:","color": "aqua"},{"score":{"name": "$no_dream_percent","objective": "tmp"}},"%"]
 function s3:jk_dream/go_to_bed/_check2/multi
 
 # 检测饥饿值
@@ -54,15 +57,20 @@ execute store result score $no_dream_percent tmp run data get entity @s foodLeve
 scoreboard players operation $no_dream_percent tmp *= 150 int
 scoreboard players operation $no_dream_percent tmp /= 20 int
 scoreboard players add $no_dream_percent tmp 50
+execute if score # debug.log matches 1 run tellraw @a [{"text": "","color": "dark_aqua"},{"text": "饥饿加成:","color": "aqua"},{"score":{"name": "$no_dream_percent","objective": "tmp"}},"%"]
 function s3:jk_dream/go_to_bed/_check2/multi
 
 # 1分钟内有睡觉记录，则不做梦的概率乘4
 execute store result score #now tmp run time query gametime
 scoreboard players operation #now tmp -= @s jk_lastDreamTime
-execute if score #now tmp <= 1200 int run scoreboard players operation $no_dream tmp *= 4 int
+scoreboard players set $no_dream_percent tmp 100
+execute if score #now tmp <= 1200 int run scoreboard players set $no_dream_percent tmp 400
+execute if score # debug.log matches 1 run tellraw @a [{"text": "","color": "dark_aqua"},{"text": "1分钟内再次入睡加成:","color": "aqua"},{"score":{"name": "$no_dream_percent","objective": "tmp"}},"%"]
+function s3:jk_dream/go_to_bed/_check2/multi
 execute store result score @s jk_lastDreamTime run time query gametime
 
 
-execute if score # debug.log matches 1 run tellraw @a [{"text": "此次不做梦的概率为:"},{"score":{"name": "$no_dream","objective": "tmp"}},"/",{"score":{"name": "$max","objective": "tmp"}}]
+execute if score # debug.log matches 1 run tellraw @a [{"text": "此次不做梦的概率为:","color": "green"},{"score":{"name": "$no_dream","objective": "tmp"}},"/",{"score":{"name": "$max","objective": "tmp"}}]
+execute if score # debug.log matches 1 run tellraw @a [{"text": "此次roll到的点数为:","color": "green"},{"score":{"name": "$random","objective": "tmp"}},"/",{"score":{"name": "$max","objective": "tmp"}}]
 
 execute if score $random tmp >= $no_dream tmp run function s3:jk_dream/go_to_bed/enter_dream
